@@ -59,6 +59,25 @@ function createStairs() {
 	// Push step forward by half the depth, minus half the vertical step's thickness
 	stepMesh.position.z = horizontalStepDepth/2 - stepHalfThickness;
 	scene.add( stepMesh );
+
+
+	// My code
+	// stepMesh = new THREE.Mesh( stepVertical, stepMaterialVertical );
+	// stepMesh.position = new THREE.Vector3(0, verticalStepHeight/2 + verticalStepHeight, horizontalStepDepth);
+	// scene.add( stepMesh );
+
+	function constructNextStairs(n) {
+		for (var i = 1; i < n; i++) {
+			stepMesh = new THREE.Mesh( stepVertical, stepMaterialVertical );
+			stepMesh.position = new THREE.Vector3(0, verticalStepHeight/2 + (verticalStepHeight + stepThickness) * i, (horizontalStepDepth - stepThickness) * i);
+			scene.add(stepMesh);
+
+			stepMesh = new THREE.Mesh( stepHorizontal, stepMaterialHorizontal );
+			stepMesh.position = new THREE.Vector3(0, (verticalStepHeight + stepThickness) * i + stepHalfThickness + verticalStepHeight, (horizontalStepDepth - stepThickness) * i + horizontalStepDepth/2 - stepHalfThickness);
+			scene.add(stepMesh);
+		}
+	}
+	constructNextStairs(6);
 }
 
 function createCup() {
