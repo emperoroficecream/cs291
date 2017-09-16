@@ -64,6 +64,10 @@ function fillScene() {
 	// ALSO CHECK OUT GUI CONTROLS FOR BODY
 	// IN THE FUNCTIONS setupGUI() and render()
 	// Note you'll have to add the body to the scene to get it to display.
+	createRobotBody( body, bodyLength, robotBodyMaterial );
+	arm.position.y = bodyLength;
+	body.add( arm );
+	scene.add( body );
 }
 
 function createRobotExtender( part, length, material )
