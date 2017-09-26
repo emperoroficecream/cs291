@@ -33,7 +33,7 @@ function createHelix( material, radius, tube, radialSegments, tubularSegments, h
 	clockwise = (clockwise === undefined) ? true : clockwise;
 
 	var helix = new THREE.Object3D();
-
+	var bottom = new THREE.Vector3();
 	var top = new THREE.Vector3();
 
 	var sine_sign = clockwise ? 1 : -1;
@@ -41,7 +41,7 @@ function createHelix( material, radius, tube, radialSegments, tubularSegments, h
 	///////////////
 	// YOUR CODE HERE: remove spheres, use capsules instead, going from point to point.
 	//
-	var sphGeom = new THREE.SphereGeometry( tube, tubularSegments, tubularSegments/2 );
+	bottom.set( radius, -height/2, 0 );
 	for ( var i = 0; i <= arc*radialSegments ; i++ )
 	{
 		// going from X to Z axis
@@ -49,10 +49,13 @@ function createHelix( material, radius, tube, radialSegments, tubularSegments, h
 		height * (i/(arc*radialSegments)) - height/2,
 		sine_sign * radius * Math.sin( i * 2*Math.PI / radialSegments ) );
 
-		var sphere = new THREE.Mesh( sphGeom, material );
-		sphere.position.copy( top );
+		// var sphere = new THREE.Mesh( sphGeom, material );
+		var capsule = createCapsule(material, tube, top, bottom, tubularSegments, false , false);
+		//sphere.position.copy( top );
 
-		helix.add( sphere );
+		//helix.add( sphere );
+		helix.add(capsule);
+		bottom.copy(top);
 	}
 	///////////////
 

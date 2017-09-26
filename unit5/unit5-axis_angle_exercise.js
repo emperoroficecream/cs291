@@ -31,31 +31,82 @@ function fillScene() {
 	scene.add(light);
 	scene.add(light2);
 
-	var cylinderMaterial = new THREE.MeshPhongMaterial( { color: 0xD1F5FD, specular: 0xD1F5FD, shininess: 100 } );
+	// var cylinderMaterial = new THREE.MeshPhongMaterial( { color: 0xD1F5FD, specular: 0xD1F5FD, shininess: 100 } );
 
-	// get two diagonally-opposite corners of the cube and compute the
-	// cylinder axis direction and length
-	var maxCorner = new THREE.Vector3(  1, 1, 1 );
-	var minCorner = new THREE.Vector3( -1,-1,-1 );
-	// note how you can chain one operation on to another:
-	var cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
-	var cylLength = cylAxis.length();
+	// // get two diagonally-opposite corners of the cube and compute the
+	// // cylinder axis direction and length
+	// var maxCorner = new THREE.Vector3(  1, 1, 1 );
+	// var minCorner = new THREE.Vector3( -1,-1,-1 );
+	// // note how you can chain one operation on to another:
+	// var cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
+	// var cylLength = cylAxis.length();
 
-	// take dot product of cylAxis and up vector to get cosine of angle
-	cylAxis.normalize();
-	var theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
-	// or just simply theta = Math.acos( cylAxis.y );
+	// // take dot product of cylAxis and up vector to get cosine of angle
+	// cylAxis.normalize();
+	// var theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
+	// // or just simply theta = Math.acos( cylAxis.y );
 
-	// YOUR CODE HERE
-	var cylinder = new THREE.Mesh(
-		new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
-	var rotationAxis = new THREE.Vector3(1,0,-1);
-	// makeRotationAxis wants its axis normalized
-	rotationAxis.normalize();
-	// don't use position, rotation, scale
-	cylinder.matrixAutoUpdate = false;
-	cylinder.matrix.makeRotationAxis( rotationAxis, theta );
-	scene.add( cylinder );
+	// // YOUR CODE HERE
+	// var cylinder = new THREE.Mesh(
+	// 	new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
+	// var rotationAxis = new THREE.Vector3(1,0,-1);
+	// // makeRotationAxis wants its axis normalized
+	// rotationAxis.normalize();
+	// // don't use position, rotation, scale
+	// cylinder.matrixAutoUpdate = false;
+	// cylinder.matrix.makeRotationAxis( rotationAxis, theta );
+	// scene.add( cylinder );
+
+	function makeRotatedCylinder(minCorner, maxCorner, rotationAxis) {
+		var cylinderMaterial = new THREE.MeshPhongMaterial( { color: 0xD1F5FD, specular: 0xD1F5FD, shininess: 100 } );
+
+		// get two diagonally-opposite corners of the cube and compute the
+		// cylinder axis direction and length
+		// var maxCorner = new THREE.Vector3(  1, 1, 1 );
+		// var minCorner = new THREE.Vector3( -1,-1,-1 );
+		// note how you can chain one operation on to another:
+		var cylAxis = new THREE.Vector3().subVectors( maxCorner, minCorner );
+		var cylLength = cylAxis.length();
+
+		// take dot product of cylAxis and up vector to get cosine of angle
+		cylAxis.normalize();
+		var theta = Math.acos( cylAxis.dot( new THREE.Vector3(0,1,0) ) );
+		// or just simply theta = Math.acos( cylAxis.y );
+
+		// YOUR CODE HERE
+		var cylinder = new THREE.Mesh(
+			new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
+		// var rotationAxis = new THREE.Vector3(1,0,-1);
+		// makeRotationAxis wants its axis normalized
+		rotationAxis.normalize();
+		// don't use position, rotation, scale
+		cylinder.matrixAutoUpdate = false;
+		cylinder.matrix.makeRotationAxis( rotationAxis, theta );
+		console.log(cylinder.matrix);
+		scene.add( cylinder );
+	}
+
+	makeRotatedCylinder(
+		new THREE.Vector3(-1, -1, -1),
+		new THREE.Vector3(1, 1, 1), 
+		new THREE.Vector3(1, 0, -1)
+	);
+	makeRotatedCylinder(
+		new THREE.Vector3(-1, -1, -1),
+		new THREE.Vector3(1, 1, 1), 
+		new THREE.Vector3(-1, 0, 1)
+	);
+
+	makeRotatedCylinder(
+		new THREE.Vector3(-1, -1, -1),
+		new THREE.Vector3(1, 1, 1), 
+		new THREE.Vector3(1, 0, 1)
+	);
+	makeRotatedCylinder(
+		new THREE.Vector3(-1, -1, -1),
+		new THREE.Vector3(1, 1, 1), 
+		new THREE.Vector3(-1, 0, -1)
+	);
 
 }
 
