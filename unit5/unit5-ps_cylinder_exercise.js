@@ -112,20 +112,33 @@ function fillScene() {
 	var cylinder;
 
 	// along Y axis
-	cylinder = new createCylinderFromEnds( greenMaterial,
-		radiusTop, radiusBottom,
-		new THREE.Vector3( 0, 300, 0 ),
-		new THREE.Vector3( 0, 0, 0 ),
-		segmentsWidth, openEnded );
-	scene.add( cylinder );
+	// cylinder = new createCylinderFromEnds( greenMaterial,
+	// 	radiusTop, radiusBottom,
+	// 	new THREE.Vector3( 0, 300, 0 ),
+	// 	new THREE.Vector3( 0, 0, 0 ),
+	// 	segmentsWidth, openEnded );
+	// scene.add( cylinder );
+
+
+	var newCy = new THREE.Mesh(
+		new THREE.CylinderGeometry(1, 50, 200, 32),
+		redMaterial
+	);
+
+  var newCyObj = new THREE.Object3D();
+	newCyObj.add(newCy);
+	newCyObj.position.y = 200;
+	newCyObj.position.x = 100;
+	newCyObj.rotation.y = 90 * Math.PI / 180;
+	scene.add(newCyObj);
 
 	// along X axis
-	cylinder = new createCylinderFromEnds( redMaterial,
-		radiusTop, radiusBottom,
-		new THREE.Vector3( 300, 0, 0 ),
-		new THREE.Vector3( 0, 0, 0 ),
-		segmentsWidth, openEnded );
-	scene.add( cylinder );
+	// cylinder = new createCylinderFromEnds( redMaterial,
+	// 	radiusTop, radiusBottom,
+	// 	new THREE.Vector3( 300, 0, 0 ),
+	// 	new THREE.Vector3( 0, 0, 0 ),
+	// 	segmentsWidth, openEnded );
+	// scene.add( cylinder );
 
 	// along Z axis
 	cylinder = new createCylinderFromEnds( blueMaterial,
