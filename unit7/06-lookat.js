@@ -33,7 +33,7 @@ function init() {
 		-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2,
 		viewSize / 2, -viewSize / 2,
 		0, 10000 );
-	camera.position.set( -890, 600, -480 );
+	camera.position.set( -2800, 360, -1600 );
 
 	// CONTROLS
 	cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
